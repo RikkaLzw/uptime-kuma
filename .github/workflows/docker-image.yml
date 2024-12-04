@@ -1,0 +1,22 @@
+name: Run Uptime Kuma
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Build and run Uptime Kuma
+      run: |
+        docker build -t uptime-kuma .
+        docker run -d -p 3001:3001 uptime-kuma
